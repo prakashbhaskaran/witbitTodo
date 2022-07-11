@@ -1,1 +1,1 @@
-[App Link](https://p64-witbit.netlify.app/).
+[App Link](https://p64-witbit.netlify.app/)
