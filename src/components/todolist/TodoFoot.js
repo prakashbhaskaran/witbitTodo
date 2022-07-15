@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TodoContext } from "../../store.js/TodoProvider";
+import { TodoContext } from "../../store/TodoProvider";
 
 const TodoFoot = () => {
   const { list } = useContext(TodoContext);

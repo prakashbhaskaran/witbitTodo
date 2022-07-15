@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TodoContext } from "../../store.js/TodoProvider";
+import { TodoContext } from "../../store/TodoProvider";
 import Modal from "../modal/Modal";
 
 const TodoHead = () => {

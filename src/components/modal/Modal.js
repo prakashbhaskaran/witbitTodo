@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Add from "./Add";
 import Remove from "./Remove";
 import Edit from "./Edit";
-import { TodoContext } from "../../store.js/TodoProvider";
+import { TodoContext } from "../../store/TodoProvider";
 const Modal = () => {
   const { openModal } = useContext(TodoContext);
   return (
