@@ -79,6 +79,7 @@ const Add = () => {
           defaultValue={student.score}
           min="0"
           max="100"
+          step=".01"
           onChange={(e) => {
             setStudent({ ...student, score: e.target.value });
             findScoreError(e.target.value, e.target.id);

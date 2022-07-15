@@ -79,6 +79,7 @@ const Edit = () => {
           defaultValue={selected.score}
           min="0"
           max="100"
+          step=".01"
           onChange={(e) => {
             setSelected({ ...selected, score: e.target.value });
             findScoreError(e.target.value, e.target.id);
