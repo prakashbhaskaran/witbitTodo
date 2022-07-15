@@ -14,6 +14,9 @@ const Edit = () => {
     setSelected,
     editTodo,
     editValidation,
+    nameRef,
+    classRef,
+    scoreRef,
   } = useContext(TodoContext);
 
   return (
@@ -26,7 +29,7 @@ const Edit = () => {
           STUDENT NAME*
         </label>
         <input
-          id="Name"
+          name="Name"
           type="text"
           defaultValue={selected.sname}
           placeholder="Enter student name"
@@ -34,6 +37,7 @@ const Edit = () => {
             setSelected({ ...selected, sname: e.target.value });
             findNameError(e.target.value, e.target.id);
           }}
+          ref={nameRef}
           className="border w-full px-[14px] py-2 rounded-[10px] mt-2"
           required
         />
@@ -47,12 +51,13 @@ const Edit = () => {
           CLASS*
         </label>
         <input
-          id="Class"
+          name="Class"
           type="number"
           placeholder="Enter class"
           defaultValue={selected.standard}
           min="1"
           max="12"
+          ref={classRef}
           onChange={(e) => {
             setSelected({ ...selected, standard: e.target.value });
             findClassError(e.target.value, e.target.id);
@@ -73,13 +78,14 @@ const Edit = () => {
           SCORE*
         </label>
         <input
-          id="Score"
+          name="Score"
           type="number"
           placeholder="Enter score"
           defaultValue={selected.score}
           min="0"
           max="100"
           step=".01"
+          ref={scoreRef}
           onChange={(e) => {
             setSelected({ ...selected, score: e.target.value });
             findScoreError(e.target.value, e.target.id);

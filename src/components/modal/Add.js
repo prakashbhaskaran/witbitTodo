@@ -14,6 +14,9 @@ const Add = () => {
     findClassError,
     error,
     validation,
+    nameRef,
+    classRef,
+    scoreRef,
   } = useContext(TodoContext);
 
   return (
@@ -26,14 +29,15 @@ const Add = () => {
           STUDENT NAME*
         </label>
         <input
-          id="Name"
+          name="Name"
           type="text"
           defaultValue={student.sname}
           placeholder="Enter student name"
           onChange={(e) => {
             setStudent({ ...student, sname: e.target.value });
-            findNameError(e.target.value, e.target.id);
+            findNameError(e.target.value);
           }}
+          ref={nameRef}
           className="border w-full px-[14px] py-2 rounded-[10px] mt-2"
           required
         />
@@ -47,15 +51,16 @@ const Add = () => {
           CLASS*
         </label>
         <input
-          id="Class"
+          name="Class"
           type="number"
           placeholder="Enter class"
           defaultValue={student.standard}
           min="1"
           max="12"
+          ref={classRef}
           onChange={(e) => {
             setStudent({ ...student, standard: e.target.value });
-            findClassError(e.target.value, e.target.id);
+            findClassError(e.target.value);
           }}
           className="border w-full px-[14px] py-2 rounded-[10px] mt-2"
           required
@@ -73,16 +78,17 @@ const Add = () => {
           SCORE*
         </label>
         <input
-          id="Score"
+          name="Score"
           type="number"
           placeholder="Enter score"
           defaultValue={student.score}
           min="0"
           max="100"
           step=".01"
+          ref={scoreRef}
           onChange={(e) => {
             setStudent({ ...student, score: e.target.value });
-            findScoreError(e.target.value, e.target.id);
+            findScoreError(e.target.value);
           }}
           className="border w-full px-[14px] py-2 rounded-[10px] mt-2"
           required

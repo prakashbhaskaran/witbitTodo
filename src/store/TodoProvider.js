@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 
 export const TodoContext = createContext();
 
@@ -18,6 +18,9 @@ const TodoProvider = ({ children }) => {
     score: "Please input values between 0 & 100",
   });
   const [openModal, setOpenModal] = useState({ modalName: "", active: false });
+  const nameRef = useRef();
+  const classRef = useRef();
+  const scoreRef = useRef();
 
   useEffect(() => {
     const data = JSON.parse(sessionStorage.getItem("todo")) || [];
@@ -144,48 +147,43 @@ const TodoProvider = ({ children }) => {
     }
   }
 
-  function findNameError(value, id) {
+  function findNameError(value) {
     if (value === "") {
-      document
-        .getElementById(`${id}`)
-        .classList.add("border-red-500", "focus:outline-red-500");
+      nameRef.current.classList.add("border-red-500", "focus:outline-red-500");
       setError({
         ...error,
-        sname: `Error: ${id} field cannot be left blank`,
+        sname: `Error: ${nameRef.current.name} field cannot be left blank`,
       });
     } else {
-      document
-        .getElementById(`${id}`)
-        .classList.remove("border-red-500", "focus:outline-red-500");
+      nameRef.current.classList.remove(
+        "border-red-500",
+        "focus:outline-red-500"
+      );
       setError({ ...error, sname: "" });
     }
   }
 
-  function findClassError(value, id) {
-    let standard = document.querySelector(".standard");
+  function findClassError(value) {
     if (value === "") {
-      document
-        .getElementById(`${id}`)
-        .classList.add("border-red-500", "focus:outline-red-500");
-      standard.classList.remove("text-[#666A6C]");
-      standard.classList.add("text-red-500");
+      classRef.current.classList.add("border-red-500", "focus:outline-red-500");
+      classRef.current.nextSibling.classList.remove("text-[#666A6C]");
+      classRef.current.nextSibling.classList.add("text-red-500");
 
       setError({
         ...error,
-        standard: `Error: ${id} field cannot be left blank`,
+        standard: `Error: ${classRef.current.name} field cannot be left blank`,
       });
     } else if (value < 1 || value > 12) {
-      document
-        .getElementById(`${id}`)
-        .classList.add("border-red-500", "focus:outline-red-500");
-      standard.classList.remove("text-[#666A6C]");
-      standard.classList.add("text-red-500");
+      classRef.current.classList.add("border-red-500", "focus:outline-red-500");
+      classRef.current.nextSibling.classList.remove("text-[#666A6C]");
+      classRef.current.nextSibling.classList.add("text-red-500");
     } else {
-      document
-        .getElementById(`${id}`)
-        .classList.remove("border-red-500", "focus:outline-red-500");
-      standard.classList.remove("text-red-500");
-      standard.classList.add("text-[#666A6C]");
+      classRef.current.classList.remove(
+        "border-red-500",
+        "focus:outline-red-500"
+      );
+      classRef.current.nextSibling.classList.remove("text-red-500");
+      classRef.current.nextSibling.classList.add("text-[#666A6C]");
       setError({
         ...error,
         standard: `Please input values between 1 & 12`,
@@ -193,35 +191,31 @@ const TodoProvider = ({ children }) => {
     }
   }
 
-  function findScoreError(value, id) {
-    let score = document.querySelector(".score");
+  function findScoreError(value) {
     if (value === "") {
-      document
-        .getElementById(`${id}`)
-        .classList.add("border-red-500", "focus:outline-red-500");
-      score.classList.remove("text-[#666A6C]");
-      score.classList.add("text-red-500");
+      scoreRef.current.classList.add("border-red-500", "focus:outline-red-500");
+      scoreRef.current.nextSibling.classList.remove("text-[#666A6C]");
+      scoreRef.current.nextSibling.classList.add("text-red-500");
 
       setError({
         ...error,
-        score: `Error: ${id} field cannot be left blank`,
+        score: `Error: ${scoreRef.current.name} field cannot be left blank`,
       });
     } else if (value > 100 || value < 0) {
-      document
-        .getElementById(`${id}`)
-        .classList.add("border-red-500", "focus:outline-red-500");
-      score.classList.remove("text-[#666A6C]");
-      score.classList.add("text-red-500");
+      scoreRef.current.classList.add("border-red-500", "focus:outline-red-500");
+      scoreRef.current.nextSibling.classList.remove("text-[#666A6C]");
+      scoreRef.current.nextSibling.classList.add("text-red-500");
       setError({
         ...error,
         score: `Error: Please input values from 0 to 100`,
       });
     } else {
-      document
-        .getElementById(`${id}`)
-        .classList.remove("border-red-500", "focus:outline-red-500");
-      score.classList.remove("text-red-500");
-      score.classList.add("text-[#666A6C]");
+      scoreRef.current.classList.remove(
+        "border-red-500",
+        "focus:outline-red-500"
+      );
+      scoreRef.current.nextSibling.classList.remove("text-red-500");
+      scoreRef.current.nextSibling.classList.add("text-[#666A6C]");
       setError({ ...error, score: "Please input values between 0 & 100" });
     }
   }
@@ -248,6 +242,9 @@ const TodoProvider = ({ children }) => {
     classFinder,
     validation,
     editValidation,
+    nameRef,
+    classRef,
+    scoreRef,
   };
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
 };
