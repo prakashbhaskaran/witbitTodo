@@ -35,7 +35,7 @@ const Edit = () => {
           placeholder="Enter student name"
           onChange={(e) => {
             setSelected({ ...selected, sname: e.target.value });
-            findNameError(e.target.value, e.target.id);
+            findNameError(e.target.value);
           }}
           ref={nameRef}
           className="border w-full px-[14px] py-2 rounded-[10px] mt-2"
@@ -60,7 +60,7 @@ const Edit = () => {
           ref={classRef}
           onChange={(e) => {
             setSelected({ ...selected, standard: e.target.value });
-            findClassError(e.target.value, e.target.id);
+            findClassError(e.target.value);
           }}
           className="border w-full px-[14px] py-2 rounded-[10px] mt-2"
           required
@@ -88,7 +88,7 @@ const Edit = () => {
           ref={scoreRef}
           onChange={(e) => {
             setSelected({ ...selected, score: e.target.value });
-            findScoreError(e.target.value, e.target.id);
+            findScoreError(e.target.value);
           }}
           className="border w-full px-[14px] py-2 rounded-[10px] mt-2"
           required
