@@ -28,14 +28,14 @@ const TodoProvider = ({ children }) => {
   }, []);
 
   function findResult(value) {
-    if (value === null || value === "") {
+    if (value === null || value === "" || value > 100) {
       return "-";
     } else if (value >= 0 && value <= 30) return "Failed";
     else if ((value >= 31 && value <= 75) || (value >= 76 && value <= 100))
       return "Passed";
   }
   function findGrade(value) {
-    if (value === null || value === "") {
+    if (value === null || value === "" || value > 100) {
       return "-";
     } else if (value >= 0 && value <= 30) return "Poor";
     else if (value >= 31 && value <= 75) return "Average";
@@ -163,8 +163,14 @@ const TodoProvider = ({ children }) => {
     }
   }
 
-  function findClassError(value) {
+  function findClassError(e) {
+    let value = e.target.value;
+
+    if (/[^0-9]+/.test(value) === true || e.keyCode === 190) {
+      classRef.current.value = classRef.current.value.replace(/[^0-9]*/g, "");
+    }
     if (value === "") {
+      classRef.current.value = "";
       classRef.current.classList.add("border-red-500", "focus:outline-red-500");
       classRef.current.nextSibling.classList.remove("text-[#666A6C]");
       classRef.current.nextSibling.classList.add("text-red-500");
@@ -192,7 +198,17 @@ const TodoProvider = ({ children }) => {
   }
 
   function findScoreError(value) {
+    let t = scoreRef.current.value;
+
+    if (/^\d*(\.\d{0,2})?$/.test(scoreRef.current.value) === false) {
+      scoreRef.current.value =
+        t.indexOf(".") >= 0
+          ? t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)
+          : t;
+    }
+
     if (value === "") {
+      scoreRef.current.value = "";
       scoreRef.current.classList.add("border-red-500", "focus:outline-red-500");
       scoreRef.current.nextSibling.classList.remove("text-[#666A6C]");
       scoreRef.current.nextSibling.classList.add("text-red-500");
@@ -201,7 +217,7 @@ const TodoProvider = ({ children }) => {
         ...error,
         score: `Error: ${scoreRef.current.name} field cannot be left blank`,
       });
-    } else if (value > 100 || value < 0) {
+    } else if (value < 0 || value > 100) {
       scoreRef.current.classList.add("border-red-500", "focus:outline-red-500");
       scoreRef.current.nextSibling.classList.remove("text-[#666A6C]");
       scoreRef.current.nextSibling.classList.add("text-red-500");

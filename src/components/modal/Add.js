@@ -58,9 +58,9 @@ const Add = () => {
           min="1"
           max="12"
           ref={classRef}
-          onChange={(e) => {
+          onKeyUp={(e) => {
             setStudent({ ...student, standard: e.target.value });
-            findClassError(e.target.value);
+            findClassError(e);
           }}
           className="border w-full px-[14px] py-2 rounded-[10px] mt-2"
           required
